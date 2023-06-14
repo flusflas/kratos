@@ -107,6 +107,9 @@ func (s *Strategy) processLogin(w http.ResponseWriter, r *http.Request, a *login
 			if len(a.ReturnTo) > 0 {
 				opts = append(opts, registration.WithFlowReturnTo(a.ReturnTo))
 			}
+			if a.OAuth2LoginChallenge.Valid {
+				opts = append(opts, registration.WithFlowOAuth2LoginChallenge(a.OAuth2LoginChallenge))
+			}
 
 			// This flow only works for browsers anyways.
 			aa, err := s.d.RegistrationHandler().NewRegistrationFlow(w, r, flow.TypeBrowser, opts...)

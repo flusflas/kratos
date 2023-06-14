@@ -8,6 +8,8 @@ import (
 	"net/url"
 	"time"
 
+	"github.com/gofrs/uuid"
+
 	"github.com/ory/kratos/hydra"
 	"github.com/ory/kratos/text"
 
@@ -103,6 +105,12 @@ type FlowOption func(f *Flow)
 func WithFlowReturnTo(returnTo string) FlowOption {
 	return func(f *Flow) {
 		f.ReturnTo = returnTo
+	}
+}
+
+func WithFlowOAuth2LoginChallenge(loginChallenge uuid.NullUUID) FlowOption {
+	return func(f *Flow) {
+		f.OAuth2LoginChallenge = loginChallenge
 	}
 }
 
